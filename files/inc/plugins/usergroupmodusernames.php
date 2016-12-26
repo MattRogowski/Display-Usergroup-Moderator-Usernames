@@ -59,13 +59,18 @@ function usergroupmodusernames_build()
 
 	foreach($moderatorcache as $fid => $types)
 	{
-		if(!$types)
+		if(!$types || !array_key_exists('usergroups', $types))
 		{
 			continue;
 		}
 		foreach($types['usergroups'] as $gid => $mod_info)
 		{
 			unset($mod_info['title']);
+
+			if(!array_key_exists('users', $moderatorcache[$fid]))
+			{
+				$moderatorcache[$fid]['users'] = array();
+			}
 
 			$query = $db->simple_select('users', 'uid, username, usergroup, displaygroup', 'usergroup = '.intval($gid));
 			while($user = $db->fetch_array($query))
