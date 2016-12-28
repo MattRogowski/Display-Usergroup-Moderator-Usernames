@@ -1,6 +1,6 @@
 <?php
 /**
- * Display Usergroup Moderator Usernames 0.0.1
+ * Display Usergroup Moderator Usernames 1.0.0
 
  * Copyright 2016 Matthew Rogowski
 
@@ -23,6 +23,7 @@ if(!defined("IN_MYBB"))
 }
 
 $plugins->add_hook('build_forumbits_forum', 'usergroupmodusernames_build');
+$plugins->add_hook('forumdisplay_start', 'usergroupmodusernames_build');
 
 function usergroupmodusernames_info()
 {
@@ -32,7 +33,7 @@ function usergroupmodusernames_info()
 		"website" => "https://github.com/MattRogowski/Display-Usergroup-Moderator-Usernames",
 		"author" => "Matt Rogowski",
 		"authorsite" => "https://matt.rogow.ski",
-		"version" => "0.0.1",
+		"version" => "1.0.0",
 		"compatibility" => "18*",
 		"codename" => "usergroupmodusernames"
 	);
@@ -50,11 +51,16 @@ function usergroupmodusernames_deactivate()
 
 function usergroupmodusernames_build()
 {
-	global $db, $moderatorcache, $rebuilt_moderatorcache;
+	global $db, $cache, $moderatorcache, $rebuilt_moderatorcache;
 
 	if($rebuilt_moderatorcache)
 	{
 		return;
+	}
+
+	if(!$moderatorcache)
+	{
+		$moderatorcache = $cache->read('moderators');
 	}
 
 	foreach($moderatorcache as $fid => $types)
@@ -92,5 +98,6 @@ function usergroupmodusernames_build()
 		}
 	}
 
+	$cache->cache['moderators'] = $moderatorcache;
 	$rebuilt_moderatorcache = true;
 }

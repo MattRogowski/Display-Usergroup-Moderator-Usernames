@@ -3,7 +3,7 @@ Description: Display the usernames of usergroup moderators instead of the usergr
 Website: https://github.com/MattRogowski/Display-Usergroup-Moderator-Usernames
 Author: Matt Rogowski
 Authorsite: https://matt.rogow.ski
-Version: 0.0.1
+Version: 1.0.0
 Compatibility: 1.8.x
 Files: 1
 
@@ -16,6 +16,7 @@ Go to ACP > Plugins > Activate
 
 Change Log:
 26/12/16 - v0.0.1 -> Initial 'beta' release.
+28/12/16 - v0.0.1 -> v1.0.0 -> Fixed bug with 'moderated by' text on forum display not being shown with usernames. To upgrade, reupload ./inc/plugins/usergroupmodusernames.php
 
 Copyright 2016 Matthew Rogowski
 
